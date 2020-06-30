@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Misitu</string>
+    <string name="permission_read_external_storage">ok</string>
+</resources>
