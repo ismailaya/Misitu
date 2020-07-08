@@ -6,9 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class malezo_binafsi extends AppCompatActivity {
 
+    com.omarshehe.forminputkotlin.FormInputText fname, mname, lname, zid, phone, street;
     Button endelea;
 
     @Override
@@ -18,6 +23,12 @@ public class malezo_binafsi extends AppCompatActivity {
 
         //getSupportActionBar().hide();
         endelea = (Button)findViewById(R.id.btnMchanga);
+        fname = findViewById(R.id.fname);
+        mname = findViewById(R.id.mname);
+        lname = findViewById(R.id.lname);
+        zid = findViewById(R.id.zanID);
+        phone = findViewById(R.id.phoneNumber);
+        street = findViewById(R.id.mtaa);
 
         endelea.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -30,6 +41,22 @@ public class malezo_binafsi extends AppCompatActivity {
 
     public void event() {
         Intent intent = new Intent(malezo_binafsi.this, maelezo_mchanga.class);
+        JSONObject maelezoBinafsi = new JSONObject();
+        try {
+            maelezoBinafsi.put("fname", fname.getValue());
+            maelezoBinafsi.put("mname", mname.getValue());
+            maelezoBinafsi.put("lname", lname.getValue());
+            maelezoBinafsi.put("zid", zid.getValue());
+            maelezoBinafsi.put("phone", phone.getValue());
+            maelezoBinafsi.put("street", street.getValue());
+
+        } catch (JSONException e) {
+            // to do auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+        intent.putExtra("maelezoBinafsi", maelezoBinafsi.toString());
         startActivity(intent);
         finish();
     }

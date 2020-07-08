@@ -36,7 +36,9 @@ dependencies {
     implementation 'com.github.PremMehta022:OnboardWalkthrough:1.0.0'
     //formInput
     implementation 'com.github.OmarShehe.FormInputs:forminputkotlin:1.0.3'
+    //for database interaction
+    implementation 'com.android.volley:volley:1.1.1'
 
-    compile 'pub.devrel:easypermissions:0.2.0'
+    implementation 'pub.devrel:easypermissions:0.2.0'
 
 }
