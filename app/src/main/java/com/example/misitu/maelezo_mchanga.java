@@ -36,7 +36,10 @@ public class maelezo_mchanga extends AppCompatActivity {
         viambatanishi = (Button)findViewById(R.id.btnViambatanishi);
         viambatanishi.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                event();
+                if(!tani.isError(null) && !ainaYaUjenzi.isError(null) && !houseNo.isError(null) &&
+                        !wilaya.isError(null)  && !shehia.isError(null)) {
+                    event();
+                }
             }
         });
 

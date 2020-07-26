@@ -27,13 +27,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class viambatanishi extends AppCompatActivity {
-    public static final int PICKFILE_RESULT_CODE = 1;
-    public static final int PICKFILE_RESULT_CODE2 = 1;
+
+    public static final String UPLOAD_URL = "https://192.168.56.1/misitu/apply.php";
+
+    //Pdf request code
+    private int PICK_PDF_REQUEST = 1;
+    //storage permission code
+    private static final int STORAGE_PERMISSION_CODE = 123;
+
+
 
     Button sheha, kibali, sendData;
     TextView shehaName, kibaliName;
     private Uri fileUri;
+    private Uri fileUriSheha;
     private String filePath;
+    private String filePathSheha;
     String maelezoYote;
     private ProgressDialog prg;
 
@@ -61,7 +70,7 @@ public class viambatanishi extends AppCompatActivity {
                 Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
                 chooseFile.setType("*/*");
                 chooseFile = Intent.createChooser(chooseFile, "Choose a file");
-                startActivityForResult(chooseFile, PICKFILE_RESULT_CODE);
+                startActivityForResult(chooseFile, 0);
             }
         });
 
@@ -71,13 +80,20 @@ public class viambatanishi extends AppCompatActivity {
                 Intent chooseFile = new Intent(Intent.ACTION_GET_CONTENT);
                 chooseFile.setType("*/*");
                 chooseFile = Intent.createChooser(chooseFile, "Choose a file");
-                startActivityForResult(chooseFile, PICKFILE_RESULT_CODE2);
+                startActivityForResult(chooseFile, 1);
             }
         });
 
         sendData.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                event();
+                if(shehaName.toString().equals("") && kibaliName.toString().equals(" ")) {
+                    Toast.makeText(getApplication(), "Tafadhali Chagua Viambatanishi", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    event();
+
+                }
+
             }
         });
     }
@@ -85,19 +101,21 @@ public class viambatanishi extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case PICKFILE_RESULT_CODE:
-                if (resultCode == -1) {
-                    fileUri = data.getData();
-                    filePath = fileUri.getPath();
-                    shehaName.setText(filePath);
-                } else {
-                    fileUri = data.getData();
-                    filePath = fileUri.getPath();
-                    kibaliName.setText(filePath);
-                }
-                break;
+        if (requestCode == 0 && resultCode == RESULT_OK && null != data){
+            fileUriSheha = data.getData();
+            filePathSheha = fileUriSheha.getPath();
+            shehaName.setText(filePathSheha);
+        }
 
+        else if (requestCode == 1 && resultCode == RESULT_OK && null != data) {
+            fileUri = data.getData();
+            filePath = fileUri.getPath();
+            kibaliName.setText(filePath);
+
+        }
+        else
+        {
+            Toast.makeText(this, "HujaChagua Kiambatanishi Chochote", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -116,7 +134,7 @@ public class viambatanishi extends AppCompatActivity {
 
 
 
-        JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, "http://192.168.43.232/misitu/apply.php",
+        JsonObjectRequest jsonReq = new JsonObjectRequest(Request.Method.POST, "https://192.168.56.1/misitu/apply.php",
                 new JSONObject(postParam),
                 new Response.Listener<JSONObject>(){
                     @Override

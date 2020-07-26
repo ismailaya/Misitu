@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.omarshehe.forminputkotlin.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,9 +33,15 @@ public class malezo_binafsi extends AppCompatActivity {
         phone = findViewById(R.id.phoneNumber);
         street = findViewById(R.id.mtaa);
 
+
         endelea.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                event();
+                if(!fname.isError(null) && !mname.isError(null) && !lname.isError(null) &&
+                        !zid.isError(null)  && !phone.isError(null) && !street.isError(null))
+                {
+                    event();
+                }
+
             }
         });
 
@@ -60,4 +69,9 @@ public class malezo_binafsi extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-}
+
+    public void inputValidation() {
+
+        }
+
+    }

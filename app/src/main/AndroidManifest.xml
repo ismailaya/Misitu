@@ -15,8 +15,8 @@
         <activity android:name=".viambatanishi"></activity>
         <activity android:name=".maelezo_mchanga" />
         <activity android:name=".malezo_binafsi" />
+        <activity android:name=".IntroActivity" />
         <activity android:name=".Menu" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".Splash_screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
